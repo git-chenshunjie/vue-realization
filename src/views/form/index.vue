@@ -18,6 +18,8 @@
 import MyInput from "./component/MyInput";
 import MyFormItem from "./component/MyFormItem";
 import MyForm from "./component/MyForm";
+import Notice from "@/components/Notice.vue";
+import myPopup from "@/plugins/myPopup.js";
 export default {
   components: {
     MyInput,
@@ -28,8 +30,8 @@ export default {
   data() {
     return {
       formData: {
-        name: "tom",
-        password: "123456",
+        name: "",
+        password: "",
       },
       rules: {
         name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
@@ -41,7 +43,12 @@ export default {
     login(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("成功");
+          const notice = myPopup(Notice, {
+            title: "提示",
+            message: "用户登录成功了",
+            duration: 2000,
+          });
+          notice.show();
         } else {
           console.log("error submit");
           return false;

@@ -5,7 +5,10 @@
 </template>
 
 <script>
+import emitter from "@/mixins/emitter";
 export default {
+  componentName: "MyForm",
+  mixins: [emitter],
   props: {
     model: {
       type: Object,
@@ -20,12 +23,23 @@ export default {
       form: this,
     };
   },
+  data() {
+    return {
+      fields: [],
+    };
+  },
+  created() {
+    this.$on("my.form.addField", (field) => {
+      if (field) {
+        this.fields.push(field);
+      }
+    });
+  },
   methods: {
     validate(callback) {
       // [resutPromise]
-      const tasks = this.$children
-        .filter((item) => item.prop)
-        .map((item) => item.validate());
+      const tasks = this.fields.map((item) => item.validate());
+
       //  统一处理
       Promise.all(tasks)
         .then(() => {

@@ -7,8 +7,10 @@
 </template>
 
 <script>
+import emitter from "@/mixins/emitter"
 export default {
   inheritAttrs:false, //避免属性设置到根元素
+  mixins:[emitter],
   props: {
     value: {
       type: String,
@@ -20,7 +22,7 @@ export default {
         // 派发事件
         this.$emit('input',e.target.value)
         // 通知父级执行校验
-        this.$parent.$emit("validate",e.target.value)
+        this.dispatch('MyFormItem','validate')
     },
   },
 };
