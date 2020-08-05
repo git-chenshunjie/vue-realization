@@ -9,9 +9,12 @@
 </template>
 
 <script>
+import emitter from "@/mixins/emitter";
 import Schema from "async-validator";
 export default {
+  componentName: "MyFormItem",
   inject: ["form"],
+  mixins: [emitter],
   props: {
     label: {
       type: String,
@@ -30,6 +33,9 @@ export default {
     this.$on("validate", () => {
       this.validate();
     });
+    if (this.prop) {
+      this.dispatch("MyForm", "my.form.addField", this);
+    }
   },
   methods: {
     validate() {
@@ -56,5 +62,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>
