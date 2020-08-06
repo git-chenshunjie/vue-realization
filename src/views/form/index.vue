@@ -18,7 +18,6 @@
 import MyInput from "./component/MyInput";
 import MyFormItem from "./component/MyFormItem";
 import MyForm from "./component/MyForm";
-import Notice from "@/components/Notice.vue";
 import myPopup from "@/plugins/myPopup.js";
 export default {
   components: {
@@ -43,7 +42,7 @@ export default {
     login(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const notice = myPopup(Notice, {
+          const notice = this.$notice({
             title: "提示",
             message: "用户登录成功了",
             duration: 2000,

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Notice from "@/components/Notice.vue";
 
 function myPopup(Component, props) {
     // 组件构造函数如何获取
@@ -34,4 +35,12 @@ function myPopup(Component, props) {
     return comp
 }
 
-export default myPopup
+const popup = {
+    install(Vue){
+        Vue.prototype.$notice = function(options){
+            return myPopup(Notice,options)
+        }
+    }
+}
+
+Vue.use(popup)
